@@ -1,0 +1,25 @@
+# 1. Hello
+
+My name is Alex Telon
+
+# 2. Heading
+
+This talk will be about Clean Code.
+
+# 3. Stuff
+
+What is Clean Code?
+
+# 4. Extra slide
+# 5. Extra slides
+
+The previous slide had no body text, and that works.
+And the next does not either, and it is the last one. So that kind of stuff can be tricky!
+
+Remember:
+
+ * ReADaBiLitY counts
+ * Use the right tool for the job
+ * But dont be afraid to experiment, thats how you learn!
+
+# 6. Questions?
