@@ -1,5 +1,6 @@
-import os
 import math
+import os
+import shelve
 import sys
 from typing import Iterable
 
@@ -33,25 +34,39 @@ class Slide():
         return "\n".join(self._content_lines[:self._row])
 
     def __repr__(self):
-        # If you inspect slides while debugging then this is what you will see.
         return f'Slide([{",".join(self._content_lines[:self._row])}])'
 
 
 class Slides():
     """Represents a deck of slides for a presentation."""
     def __init__(self, slides: Iterable[str]):
-        # Add dummy slide at start to 0-index the slides
-
-        # During a presentation no slides will be added or removed, so made this into a tuple to enforce this.
-        # It is still possible to replace the whole _slides object, but now at least nobody will append by misstake.
-
-        # But this type of decision is not to be taken lightly.
-        # My goal is that no external team or person uses ._slides below directly, but there is nothing stoping them doing so.
-        # Which means if you have enough users some of them will depend on these internals.
-        # And if you one day want to change the ._slides to a another collection then you will get complaints.
+        # Ensure that the _slides are 1-indexed by ensuring the precense of an empty dummy slide at position 0.
         self._slides = (Slide(""),) + tuple(Slide(content) for content in slides)
         self._page = 1
         self._n = len(self._slides)
+
+    @classmethod
+    def from_file(cls, filename: str):
+        """Creates Slides from a file."""
+        slides = []
+        with open(filename, 'r') as f:
+            lines = f.read().splitlines()
+
+        slide = []
+        # Sentinel # list item at to ensure the last item is added too.
+        for line in lines + ['#']:
+            if line.startswith('#'):
+                slides.append("\n".join(slide))
+                slide = []
+            slide.append(line)
+
+        # Now call __init__ with the content for each slide.
+        # Skip the first empty slide however
+        # NOTE: I am tempted to leave it here (since we want a dummy empty one anyways)
+        #       But that feels more like a hack. Besides __init__ still needs to inject 
+        #       an empty slide if the user calls __init__ directly which would lead to
+        #       extra logic.
+        return cls(slides[1:])
 
     @property
     def current(self):
@@ -67,33 +82,6 @@ class Slides():
         self._page = min(self._n-1, max(1, value))
 
 
-def load_slides(filename):
-    slides = []
-    with open(filename, 'r') as f:
-        lines = f.read().splitlines()
-
-    slide = []
-    # Sentinel # list item at to ensure the last item is added too.
-    for line in lines + ['#']:
-        if line.startswith('#'):
-            # If the first line is a heading (as it should) we hit
-            # this directly and we are not interested in adding an empty slide here.
-            if any(slide):
-                slides.append("\n".join(slide))
-                slide = []
-        slide.append(line)
-
-    return slides
-
-
-# Now we want to add persistence. We want to remember the last location of our presentation.
-# We dont yet know the best way to implement this. Is local storage enough, or should it be to the cloud?
-# It might be enough today with local, but what if we want to not only have persitence but also fetch whole
-# presentations from the cloud so they are always with us?
-
-# How to proceed?
-# We start by defining a database abstraction and the simplest possible db implementation.
-import shelve
 class Database():
     """Database abstraction. Provides a persistant key-value store for Slides objects."""
     def __init__(self):
@@ -111,7 +99,6 @@ class Database():
 
 
 if __name__ == "__main__":
-    # Load the presentation!
     load_file = 'sample_slides_9.txt'
     if len(sys.argv) > 1:
         load_file = sys.argv[1]
@@ -119,16 +106,11 @@ if __name__ == "__main__":
     # Create our new database object
     db = Database()
 
-    # Get slides from db if they exist.
-    # TODO loading could be cleaned up.
-    #   1. I dont like that db.get_slides gives you Slides
-    #      While load_slides just gives you the string content.
-    #      That feels inconsistent..
+    # Load the presentation!
     if db.has_slides(load_file):
         slides = db.get_slides(load_file)
     else:
-        content = load_slides(load_file)
-        slides = Slides(content)
+        slides = Slides.from_file(load_file)
 
     # Start the presentation.
     prev_c = 'right'
