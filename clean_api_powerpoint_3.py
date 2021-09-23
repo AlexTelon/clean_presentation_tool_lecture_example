@@ -41,15 +41,6 @@ class Slides():
 
 
 slides = Slides()
-commands = {
-    'left':  slides.left,
-    'right': slides.right,
-    'home':  slides.home,
-    'end':   slides.end,
-    'quit':  lambda: exit(),
-    'q':     lambda: exit(),
-}
-
 prev_c = 'home'
 while True:
     c = input('')
@@ -58,8 +49,17 @@ while True:
     if c == '':
         c = prev_c
 
-    # Get the command. Or do nothing if you dont recognize it.
-    commands[c]()
+    if c in ['right', 'r']:
+        slides.right()
+    elif c in ['left', 'l']:
+        slides.left()
+    elif c in ['home', 'h']:
+        slides.home()
+    elif c in ['end', 'e']:
+        slides.end()
+    elif c in ['quit', 'q']:
+        exit()
+
 
     # clear screen
     cls()

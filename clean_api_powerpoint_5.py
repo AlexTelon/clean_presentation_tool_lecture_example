@@ -9,6 +9,7 @@ def cls():
 class Slides():
     def __init__(self):
         self.slides = ['1. Hello', '2. Heading', '3. Stuff', '4. Questions?']
+        # Renamed _i to _page
         self._page = 1
         self._n = len(self.slides)
 
@@ -17,6 +18,7 @@ class Slides():
         # page starts at 1, while list indexing start at 0.
         return self.slides[self._page - 1]
 
+    # Renamed index -> page
     @property
     def page(self):
         return self._page
@@ -41,15 +43,6 @@ class Slides():
 
 
 slides = Slides()
-commands = {
-    'left':     slides.left,
-    'right':    slides.right,
-    'home':     slides.home,
-    'end':      slides.end,
-    'quit':     lambda: exit(),
-    'q':        lambda: exit(),
-}
-
 prev_c = 'home'
 while True:
     c = input('')
@@ -59,10 +52,17 @@ while True:
         c = prev_c
 
     if c.isdigit():
-        slides.page = int(c)
-    else:
-        # Get the command. Or do nothing if you dont recognize it.
-        commands[c]()
+        slides.index = int(c)
+    elif c in ['right', 'r']:
+        slides.right()
+    elif c in ['left', 'l']:
+        slides.left()
+    elif c in ['home', 'h']:
+        slides.home()
+    elif c in ['end', 'e']:
+        slides.end()
+    elif c in ['quit', 'q']:
+        exit()
 
     # clear screen
     cls()

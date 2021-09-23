@@ -16,12 +16,10 @@ class Slides():
     def current(self):
         return self.slides[self.index]
 
-    # Added getter and setter for index.
     @property
     def index(self):
         return self._i
 
-    # The setter for index now deals with the index
     @index.setter
     def index(self, value):
         # Clamp the value to within the available slides.
@@ -41,15 +39,6 @@ class Slides():
 
 
 slides = Slides()
-commands = {
-    'left':     slides.left,
-    'right':    slides.right,
-    'home':     slides.home,
-    'end':      slides.end,
-    'quit':     lambda: exit(),
-    'q':        lambda: exit(),
-}
-
 prev_c = 'home'
 while True:
     c = input('')
@@ -63,9 +52,17 @@ while True:
         # It works, but it feels wonky with 0 indexing for slides.
         # So we add -1 here.
         slides.index = int(c) - 1
-    else:
-        # Get the command. Or do nothing if you dont recognize it.
-        commands[c]()
+    elif c in ['right', 'r']:
+        slides.right()
+    elif c in ['left', 'l']:
+        slides.left()
+    elif c in ['home', 'h']:
+        slides.home()
+    elif c in ['end', 'e']:
+        slides.end()
+    elif c in ['quit', 'q']:
+        exit()
+
 
     # clear screen
     cls()

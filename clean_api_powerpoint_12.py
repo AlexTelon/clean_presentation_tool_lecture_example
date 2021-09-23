@@ -99,7 +99,7 @@ class Database():
     def __init__(self):
         # Outside of Database we dont need to care if we change the database implementation.
         self._d = shelve.open('.slides_db')
-    
+
     def store_slides(self, slides: Slides, key: str) -> None:
         self._d[key] = slides
 

@@ -8,8 +8,6 @@ def cls():
     # os.system('cls') # windows
     os.system('clear') # linux (or git-bash for windows)
 
-# Create a new Slide class.
-# With this we can implement a feature to show/hide parts of a slide during a presentation
 class Slide():
     """Represents a slide in a presentation."""
     def __init__(self, content: str):
@@ -35,9 +33,7 @@ class Slide():
         return "\n".join(self._content_lines[:self._row])
 
     def __repr__(self):
-        # If you inspect slides while debugging then this is what you will see.
         return f'Slide([{",".join(self._content_lines[:self._row])}])'
-
 
 class Slides():
     """Represents a deck of slides for a presentation."""

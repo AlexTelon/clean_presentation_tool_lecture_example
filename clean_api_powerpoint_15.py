@@ -46,14 +46,14 @@ class Slide():
 
         is_heading = lambda line: line.startswith('#')
         is_img = lambda line: line.strip().startswith('![')
-        is_code = lambda line: line.strip().startswith('![')
 
         for line in str(self).splitlines():
             if is_heading(line):
                 line = f"<h1>{line.replace('# ', '').replace('#', '')}</h1>"
             elif is_img(line):
                 # Parse markdown style img format.
-                # ![Alt text](https://assets.digitalocean.com/articles/alligator/boo.svg "a title")
+                # Format example:
+                # ![Alt text](https://google.com)
                 alt_text, path = re.match(r'!\[(.+)\]\((.+)\)', line.strip()).groups()
                 line = f'<img alt="{alt_text}" src="{path}">'
             else:

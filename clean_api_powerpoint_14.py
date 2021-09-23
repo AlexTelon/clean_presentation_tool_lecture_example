@@ -100,7 +100,7 @@ class Database():
 def render_page(content: str):
     """Takes an markdown-like string and transforms to html."""
     lines = []
-    lines.append(' <meta http-equiv="refresh" content="1" />')
+    lines.append('<meta http-equiv="refresh" content="1" />')
 
     is_heading = lambda line: line.startswith('#')
 
