@@ -1,14 +1,11 @@
 import math
-import os
-import re
-import shelve
 import sys
+import shelve
+import re
 from typing import Iterable
 
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
+
 
 class Slide():
     """Represents a slide in a presentation."""

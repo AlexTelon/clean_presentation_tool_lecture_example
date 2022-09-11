@@ -1,13 +1,10 @@
 import math
-import os
-import shelve
 import sys
+import shelve
 from typing import Iterable
 
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
+
 
 class Slide():
     """Represents a slide in a presentation."""
@@ -97,6 +94,7 @@ class Database():
     def has_slides(self, key: str) -> bool:
         return key in self._d
 
+# We now also show our presentation as a webpage!
 def render_page(content: str):
     """Takes an markdown-like string and transforms to html."""
     lines = []

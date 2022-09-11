@@ -1,12 +1,7 @@
-import os
 import math
 import sys
 
-
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
 
 
 class Slides():
@@ -26,7 +21,6 @@ class Slides():
 
     @page.setter
     def page(self, value):
-        # Clamp the value to within the available pages.
         self._page = min(self._n-1, max(1, value))
 
 
@@ -42,6 +36,7 @@ if __name__ == "__main__":
     slides = Slides(content)
 
     # Start the presentation.
+    cls()
     prev_c = 'right'
     while True:
         c = input('')

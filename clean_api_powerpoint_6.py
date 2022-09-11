@@ -1,9 +1,6 @@
-import os
 import math
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+
+from cls import cls
 
 
 class Slides():
@@ -25,8 +22,9 @@ class Slides():
 
     @page.setter
     def page(self, value):
-        # Clamp the value to within the available pages.
         self._page = min(self._n-1, max(1, value))
+
+    # Here I am trying out removing left, right etc and instead just using the page setter.
 
 
 slides = Slides()
@@ -42,12 +40,14 @@ while True:
     if c.isdigit():
         slides.page = int(c)
     elif c in ['right', 'r']:
+        # note that we now modify the page directly in these commands as well, just like in the is.digit part above.
         slides.page += 1
     elif c in ['left', 'l']:
         slides.page -= 1
     elif c in ['home', 'h']:
         slides.page = 1
     elif c in ['end', 'e']:
+        # Getting to the last slide can always be done with math.inf. The slides object will clamp it to the last real page.
         slides.page = math.inf
     elif c in ['quit', 'q']:
         exit()

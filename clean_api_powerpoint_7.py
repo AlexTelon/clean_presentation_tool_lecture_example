@@ -1,9 +1,6 @@
-import os
 import math
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+
+from cls import cls
 
 
 class Slides():
@@ -23,14 +20,15 @@ class Slides():
 
     @page.setter
     def page(self, value):
-        # Clamp the value to within the available pages.
         self._page = min(self._n-1, max(1, value))
 
 
-# Slides should be initializable, not hardcoded ofc.
+# Now we intialize the slides, such that we can create different types of slides.
+# Before it was hardcoded inside the Slides constructor.
 slides = Slides(['1. Hello', '2. Heading', '3. Stuff', '4. Questions?'])
 
-# The default should be to go right, right?
+# Improved the default value.
+# The default should be to go right, right? Now pressing enter goes right.
 prev_c = 'right'
 while True:
     c = input('')

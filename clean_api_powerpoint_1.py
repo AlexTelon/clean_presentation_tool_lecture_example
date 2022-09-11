@@ -1,8 +1,4 @@
-import os
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
 
 
 class Slides():

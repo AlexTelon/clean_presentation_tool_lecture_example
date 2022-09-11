@@ -1,9 +1,6 @@
-import os
 import math
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+
+from cls import cls
 
 
 class Slides():
@@ -25,7 +22,6 @@ class Slides():
 
     @page.setter
     def page(self, value):
-        # Clamp the value to within the available pages.
         self._page = min(self._n, max(1, value))
 
     def left(self):
@@ -52,7 +48,10 @@ while True:
         c = prev_c
 
     if c.isdigit():
-        slides.index = int(c)
+        # We now could remove the special handling here with -1.
+        # The API now provides what feels natural for us.
+        # also setting which page we are in a slide feels more natural than setting an index, right?
+        slides.page = int(c)
     elif c in ['right', 'r']:
         slides.right()
     elif c in ['left', 'l']:

@@ -1,13 +1,10 @@
 import math
-import os
-import shelve
 import sys
+import shelve
 from typing import Iterable
 
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
+
 
 class Slide():
     """Represents a slide in a presentation."""
@@ -115,6 +112,8 @@ if __name__ == "__main__":
     # Start the presentation.
     prev_c = 'right'
     while True:
+        # Moved clear and draw content to here!
+        # Fixes the bug where initially nothing was shown.
         # clear screen
         cls()
 

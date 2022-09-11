@@ -1,13 +1,9 @@
-import os
 import math
 import sys
 from typing import Iterable
 
+from cls import cls
 
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
 
 # Create a new Slide class.
 # With this we can implement a feature to show/hide parts of a slide during a presentation
@@ -91,6 +87,7 @@ if __name__ == "__main__":
     slides = Slides(content)
 
     # Start the presentation.
+    cls()
     prev_c = 'right'
     while True:
         c = input('')

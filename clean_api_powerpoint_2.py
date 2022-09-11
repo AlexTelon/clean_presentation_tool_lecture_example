@@ -1,8 +1,4 @@
-import os
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
 
 
 class Slides():
@@ -10,7 +6,7 @@ class Slides():
         self.slides = ['1. Hello', '2. Heading', '3. Stuff', '4. Questions?']
         self.index = 0
 
-    # Made this into a property, renamed to just current. _slide was unecessary
+    # Made this into a property, renamed to just current. The '_slide' part was unecessary.
     @property
     def current(self):
         return self.slides[self.index]

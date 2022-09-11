@@ -1,10 +1,6 @@
-import os
 import math
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
 
+from cls import cls
 
 class Slides():
     def __init__(self):
@@ -28,9 +24,11 @@ class Slides():
         self._i = min(self._n-1, max(0, value))
 
     def left(self):
+        # Before left/right had to keep sure we did not get out of bounds.
         self.index -= 1
 
     def right(self):
+        # Before left/right had to keep sure we did not get out of bounds.
         self.index += 1
 
     def home(self):

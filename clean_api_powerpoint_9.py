@@ -1,13 +1,8 @@
-import os
 import math
 import sys
 from typing import Iterable
 
-
-def cls():
-    """Clears the terminal screen"""
-    # os.system('cls') # windows
-    os.system('clear') # linux (or git-bash for windows)
+from cls import cls
 
 
 class Slides():
@@ -27,17 +22,16 @@ class Slides():
 
     @page.setter
     def page(self, value):
-        # Clamp the value to within the available pages.
         self._page = min(self._n-1, max(1, value))
 
-
+# Added a new load_slides function
 def load_slides(filename):
     slides = []
     with open(filename, 'r') as f:
         lines = f.read().splitlines()
 
     slide = []
-    # Sentinel # list item at to ensure the last item is added too.
+    # Sentinel # list item at end to ensure the last item is added too.
     for line in lines + ['#']:
         if line.startswith('#'):
             # If the first line is a heading (as it should) we hit
@@ -59,6 +53,7 @@ if __name__ == "__main__":
     slides = Slides(content)
 
     # Start the presentation.
+    cls()
     prev_c = 'right'
     while True:
         c = input('')
