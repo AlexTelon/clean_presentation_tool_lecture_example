@@ -4,16 +4,24 @@ from cls import cls
 class Slides():
     def __init__(self):
         self.slides = ['1. Hello', '2. Heading\n\nderp', '3. Stuff', '4. Questions?']
-        self.index = 0
+        self._index = 0
 
     def current_slide(self):
         return self.slides[self.index]
 
+    @property
+    def index(self):
+        return self._index
+
+    @index.setter
+    def index(self, value):
+        self._index = max(0,  min(len(self.slides) - 1, value))
+
     def left(self):
-        self.index = max(0,  self.index - 1)
+        self.index -= 1
 
     def right(self):
-        self.index = min(len(self.slides) - 1,  self.index + 1)
+        self.index += 1
 
     def home(self):
         self.index = 0
